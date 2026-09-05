@@ -60,9 +60,3 @@ Nombre: `integradora`. Dos tablas: `categorias` (catálogo) e `incidencias` (pri
 4. Abrir `http://localhost/actividad-integradora-3/`.
 
 Usuario de MySQL: `root`, sin contraseña.
-
-## Plan de commits
-
-| # | Commit | Contenido |
-|---|--------|-----------|
-| 1 | Creación de estructura inicial del proyecto | Carpetas, enrutador, esqueleto MVC, esquema SQL |
