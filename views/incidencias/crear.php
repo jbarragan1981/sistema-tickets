@@ -16,7 +16,8 @@ $datosPrevios = $datosPrevios ?? [];
             Título de la incidencia <span class="campo__obligatorio" aria-hidden="true">*</span>
         </label>
         <input class="campo__control" type="text" id="titulo" name="titulo" maxlength="120"
-               value="<?= htmlspecialchars($datosPrevios['titulo'] ?? '') ?>" required>
+               value="<?= htmlspecialchars($datosPrevios['titulo'] ?? '') ?>"
+               aria-describedby="error-titulo" required>
         <span class="campo__error" id="error-titulo"></span>
     </div>
 
@@ -24,7 +25,8 @@ $datosPrevios = $datosPrevios ?? [];
         <label class="campo__etiqueta" for="categoria_id">
             Categoría <span class="campo__obligatorio" aria-hidden="true">*</span>
         </label>
-        <select class="campo__control" id="categoria_id" name="categoria_id" required>
+        <select class="campo__control" id="categoria_id" name="categoria_id"
+                aria-describedby="error-categoria_id" required>
             <option value="">Selecciona una categoría</option>
             <?php foreach ($categorias as $id => $nombre): ?>
                 <option value="<?= (int) $id ?>"
@@ -40,7 +42,8 @@ $datosPrevios = $datosPrevios ?? [];
         <label class="campo__etiqueta" for="prioridad">
             Prioridad <span class="campo__obligatorio" aria-hidden="true">*</span>
         </label>
-        <select class="campo__control" id="prioridad" name="prioridad" required>
+        <select class="campo__control" id="prioridad" name="prioridad"
+                aria-describedby="error-prioridad" required>
             <?php foreach ($prioridades as $prioridad): ?>
                 <option value="<?= htmlspecialchars($prioridad) ?>"
                     <?= ($datosPrevios['prioridad'] ?? 'Media') === $prioridad ? 'selected' : '' ?>>
@@ -56,7 +59,8 @@ $datosPrevios = $datosPrevios ?? [];
             Persona que reporta <span class="campo__obligatorio" aria-hidden="true">*</span>
         </label>
         <input class="campo__control" type="text" id="reportante" name="reportante" maxlength="100"
-               value="<?= htmlspecialchars($datosPrevios['reportante'] ?? '') ?>" required>
+               value="<?= htmlspecialchars($datosPrevios['reportante'] ?? '') ?>"
+               aria-describedby="error-reportante" required>
         <span class="campo__error" id="error-reportante"></span>
     </div>
 
@@ -65,7 +69,8 @@ $datosPrevios = $datosPrevios ?? [];
             Correo electrónico <span class="campo__obligatorio" aria-hidden="true">*</span>
         </label>
         <input class="campo__control" type="email" id="correo" name="correo" maxlength="150"
-               value="<?= htmlspecialchars($datosPrevios['correo'] ?? '') ?>" required>
+               value="<?= htmlspecialchars($datosPrevios['correo'] ?? '') ?>"
+               aria-describedby="error-correo" required>
         <span class="campo__error" id="error-correo"></span>
     </div>
 
@@ -74,7 +79,8 @@ $datosPrevios = $datosPrevios ?? [];
             Código de área <span class="campo__obligatorio" aria-hidden="true">*</span>
         </label>
         <input class="campo__control" type="number" id="area_codigo" name="area_codigo" min="1" max="999"
-               value="<?= htmlspecialchars((string) ($datosPrevios['area_codigo'] ?? '')) ?>" required>
+               value="<?= htmlspecialchars((string) ($datosPrevios['area_codigo'] ?? '')) ?>"
+               aria-describedby="error-area_codigo" required>
         <span class="campo__error" id="error-area_codigo"></span>
     </div>
 
@@ -83,7 +89,9 @@ $datosPrevios = $datosPrevios ?? [];
             Descripción <span class="campo__obligatorio" aria-hidden="true">*</span>
         </label>
         <textarea class="campo__control" id="descripcion" name="descripcion" rows="5"
+                  aria-describedby="contador-descripcion error-descripcion"
                   required><?= htmlspecialchars($datosPrevios['descripcion'] ?? '') ?></textarea>
+        <span class="campo__contador" id="contador-descripcion" aria-live="polite">0 caracteres</span>
         <span class="campo__error" id="error-descripcion"></span>
     </div>
 

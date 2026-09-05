@@ -235,6 +235,16 @@ textarea.campo__control {
     min-height: 120px;
 }
 
+.campo__control--error {
+    border-color: var(--coral);
+}
+
+.campo__contador {
+    align-self: flex-end;
+    color: var(--tinta-suave);
+    font-size: 0.78rem;
+}
+
 .campo__error {
     display: none;
     color: var(--coral);
