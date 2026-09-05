@@ -11,16 +11,22 @@
 
 declare(strict_types=1);
 
+require_once RUTA_BASE . '/config/conexion.php';
+
 class IncidenciaController
 {
     /** Ruta absoluta de la carpeta de vistas. */
     private string $vistas;
 
+    /** Conexión PDO compartida para toda la petición. */
+    private PDO $db;
+
     public function __construct()
     {
         $this->vistas = RUTA_BASE . '/views';
+        $this->db = conexion();
         require_once RUTA_BASE . '/models/Incidencia.php';
-        // TODO instanciar el modelo Incidencia con la conexión PDO.
+        // TODO (commit 6): instanciar el modelo -> $this->modelo = new Incidencia($this->db);
     }
 
     /** Tablero de incidencias agrupadas por estado. */
@@ -145,6 +151,33 @@ class IncidenciaController
     {        
         //TODO
         $this->redirigir('listar');
+    }
+
+    // TODO: quitar esta acción antes de la entrega final, es solo para
+    // comprobar que la conexión con MySQL quedó bien configurada.
+    /** Comprobación temporal de la conexión con la base de datos. */
+    public function diagnostico(): void
+    {
+        try {
+            $version = (string) $this->db->getAttribute(PDO::ATTR_SERVER_VERSION);
+
+            $totalCategorias = (int) $this->db
+                ->query('SELECT COUNT(*) AS total FROM categorias')
+                ->fetch()['total'];
+
+            $totalIncidencias = (int) $this->db
+                ->query('SELECT COUNT(*) AS total FROM incidencias')
+                ->fetch()['total'];
+
+            echo '<h1>Diagnóstico de conexión</h1>';
+            echo '<p>Conexión con MySQL: OK</p>';
+            echo '<p>Versión del servidor: ' . htmlspecialchars($version) . '</p>';
+            echo '<p>Registros en categorias: ' . $totalCategorias . '</p>';
+            echo '<p>Registros en incidencias: ' . $totalIncidencias . '</p>';
+        } catch (PDOException $e) {
+            echo '<h1>Diagnóstico de conexión</h1>';
+            echo '<p>No se pudo consultar la base de datos.</p>';
+        }
     }
 
     /** Ruta inexistente. */
