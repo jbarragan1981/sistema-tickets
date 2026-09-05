@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 const DB_HOST   = 'localhost';
 const DB_NOMBRE = 'integradora';
-const DB_USUARIO = 'root';
-const DB_CLAVE  = '';
+const DB_USUARIO = 'jbarragan';
+const DB_CLAVE  = '123456';
 const DB_CHARSET = 'utf8mb4';
 
 /**
