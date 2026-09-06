@@ -124,31 +124,42 @@ class IncidenciaController
         $this->render('incidencias/listar', compact('titulo', 'incidencias', 'termino'));
     }
 
-    /** Actualiza el estado de una incidencia al arrastrarla en el tablero. */
+    /**
+     * Cambia el estado de una incidencia desde el tablero.
+     * Responde JSON al arrastrar y soltar; con el envío normal del
+     * selector redirige al tablero con el mensaje correspondiente.
+     */
     public function mover(): void
     {
-        header('Content-Type: application/json; charset=utf-8');
-
         $id     = (int) ($_POST['id'] ?? 0);
         $estado = (string) ($_POST['estado'] ?? '');
+        $porFetch = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
 
-        if ($id <= 0 || !in_array($estado, Incidencia::ESTADOS, true)) {
-            echo json_encode(['ok' => false, 'mensaje' => 'Datos inválidos.', 'estado' => null]);
+        $actualizado = false;
+        $motivo      = 'Los datos recibidos no son válidos.';
+
+        if ($id > 0 && in_array($estado, Incidencia::ESTADOS, true)) {
+            try {
+                $this->incidencia->cambiarEstado($id, $estado);
+                $actualizado = true;
+                $motivo      = 'Estado actualizado correctamente.';
+            } catch (PDOException $e) {
+                $motivo = 'No se pudo actualizar el estado en la base de datos.';
+            }
+        }
+
+        if ($porFetch) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'ok'      => $actualizado,
+                'mensaje' => $motivo,
+                'estado'  => $actualizado ? $estado : null,
+            ]);
             return;
         }
 
-        try {
-            $actualizado = $this->incidencia->cambiarEstado($id, $estado);
-        } catch (PDOException $e) {
-            echo json_encode(['ok' => false, 'mensaje' => 'No se pudo actualizar el estado.', 'estado' => null]);
-            return;
-        }
-
-        echo json_encode([
-            'ok'      => $actualizado,
-            'mensaje' => $actualizado ? 'Estado actualizado correctamente.' : 'No se encontró la incidencia.',
-            'estado'  => $actualizado ? $estado : null,
-        ]);
+        $this->mensaje($actualizado ? 'exito' : 'error', $motivo);
+        $this->redirigir('tablero');
     }
 
     /** Elimina una incidencia. */
@@ -180,26 +191,6 @@ class IncidenciaController
     {
         $titulo = 'Página no encontrada';
         $this->render('404', compact('titulo'));
-    }
-
-    /**
-     * Comprobación visible y temporal de la conexión a MySQL.
-     *
-     * TODO: eliminar esta ruta y este método antes de la entrega final,
-     * es solo para verificar la conexión mientras se desarrollan los
-     * commits siguientes.
-     */
-    public function diagnostico(): void
-    {
-        $version = $this->db->query('SELECT VERSION() AS version')->fetch()['version'];
-        $totalCategorias = (int) $this->db->query('SELECT COUNT(*) AS total FROM categorias')->fetch()['total'];
-        $totalIncidencias = (int) $this->db->query('SELECT COUNT(*) AS total FROM incidencias')->fetch()['total'];
-
-        header('Content-Type: text/plain; charset=utf-8');
-        echo "Conexión a MySQL: OK\n";
-        echo "Versión del servidor: {$version}\n";
-        echo "Registros en categorias: {$totalCategorias}\n";
-        echo "Registros en incidencias: {$totalIncidencias}\n";
     }
 
     /**

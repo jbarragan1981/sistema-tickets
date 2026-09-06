@@ -1,6 +1,6 @@
 <?php
 /**
- * Gestión de incidencias
+ * EasyTickets — gestión de incidencias
  * Punto de entrada único de la aplicación (front controller).
  *
  * Todas las peticiones entran por aquí: index.php?ruta=nombre
@@ -48,12 +48,8 @@ switch ($ruta) {
         $controlador->mover();
         break;
 
-    case 'eliminar':         // Funcionalidad opcional
+    case 'eliminar':         // Borrado desde la tabla de registros
         $controlador->eliminar();
-        break;
-
-    case 'diagnostico':      // TODO eliminar antes de la entrega final
-        $controlador->diagnostico();
         break;
 
     default:
