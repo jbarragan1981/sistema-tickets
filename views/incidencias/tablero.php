@@ -54,7 +54,7 @@ $clasesPrioridad = [
 
                         <div class="tarjeta__pie">
                             <span class="tarjeta__reportante"><?= htmlspecialchars($tarjeta['reportante']) ?></span>
-                            <span class="tarjeta__fecha"><?= htmlspecialchars($tarjeta['fecha']) ?></span>
+                            <span class="tarjeta__fecha"><?= htmlspecialchars(date('d/m/Y', strtotime($tarjeta['fecha_reporte']))) ?></span>
                         </div>
                     </article>
                 <?php endforeach; ?>

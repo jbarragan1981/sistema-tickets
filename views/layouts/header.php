@@ -35,3 +35,9 @@ $rutaActual = $_GET['ruta'] ?? 'tablero';
 </header>
 
 <main class="contenido">
+
+<?php if (!empty($mensaje)): ?>
+    <div class="aviso aviso--<?= htmlspecialchars($mensaje['tipo']) ?>">
+        <?= htmlspecialchars($mensaje['texto']) ?>
+    </div>
+<?php endif; ?>
