@@ -191,19 +191,6 @@ a:hover { text-decoration: underline; }
     color: #A6334A;
 }
 
-.pendiente {
-    padding: 24px;
-    border: 1px dashed var(--linea);
-    border-radius: var(--radio);
-    background: var(--papel);
-}
-
-.pendiente__nota {
-    margin: 0;
-    color: var(--tinta-suave);
-    font-size: 0.9rem;
-}
-
 /* ---------------------------------------------------------- Formulario */
 
 .formulario {
@@ -400,6 +387,196 @@ textarea.campo__control {
 .etiqueta--media   { background: var(--ambar); }
 .etiqueta--alta    { background: var(--coral); }
 .etiqueta--critica { background: var(--granate); }
+
+/* ------------------------------------------------ Arrastrar y soltar */
+
+.tablero__aviso {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    border-radius: var(--radio-chico);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.tablero__aviso--exito {
+    background: #E4F6EF;
+    color: #1F7A57;
+}
+
+.tablero__aviso--error {
+    background: #FBEAEA;
+    color: #A6334A;
+}
+
+.tablero--enviando {
+    cursor: progress;
+}
+
+.tablero--enviando .tarjeta {
+    pointer-events: none;
+}
+
+.columna__lista--soltar {
+    background: rgba(44, 140, 140, 0.10);
+    box-shadow: inset 0 0 0 2px var(--turquesa);
+    border-radius: var(--radio-chico);
+}
+
+.tarjeta--arrastrando {
+    opacity: 0.5;
+}
+
+.tarjeta__mover {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid var(--linea);
+}
+
+.tarjeta__mover-etiqueta {
+    font-size: 0.75rem;
+    color: var(--tinta-suave);
+}
+
+.tarjeta__mover-select {
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-chico);
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: inherit;
+    font-size: 0.8rem;
+}
+
+.tarjeta__mover-boton {
+    padding: 5px 10px;
+    border: none;
+    border-radius: var(--radio-chico);
+    background: var(--turquesa);
+    color: var(--papel);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.js-activo .tarjeta__mover {
+    display: none;
+}
+
+/* -------------------------------------------------- Tabla de registros */
+
+.buscador {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.buscador__etiqueta {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.buscador__control {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 12px;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-chico);
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.tabla-vacia {
+    padding: 20px;
+    border: 1px dashed var(--linea);
+    border-radius: var(--radio);
+    background: var(--papel);
+    color: var(--tinta-suave);
+}
+
+.tabla-scroll {
+    overflow-x: auto;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--papel);
+    font-size: 0.9rem;
+}
+
+.tabla-datos th,
+.tabla-datos td {
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--linea);
+}
+
+.tabla-datos th {
+    background: var(--lienzo);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--tinta-suave);
+}
+
+.tabla-datos tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-datos__id {
+    font-weight: 600;
+    color: var(--tinta-suave);
+}
+
+.marca-estado {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--lienzo);
+    color: var(--tinta-suave);
+}
+
+.marca-estado--nuevo    { box-shadow: inset 0 0 0 1px var(--turquesa); color: var(--turquesa); }
+.marca-estado--proceso  { box-shadow: inset 0 0 0 1px var(--ambar); color: #9A6B00; }
+.marca-estado--resuelto { box-shadow: inset 0 0 0 1px var(--menta); color: #1F7A57; }
+.marca-estado--cerrado  { box-shadow: inset 0 0 0 1px var(--tinta-suave); color: var(--tinta-suave); }
+
+.boton-tabla {
+    padding: 6px 12px;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-chico);
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton-tabla--peligro {
+    border-color: var(--coral);
+    color: var(--granate);
+}
+
+.boton-tabla--peligro:hover {
+    background: var(--coral);
+    color: var(--papel);
+}
 
 /* --------------------------------------------------------------- Pie */
 

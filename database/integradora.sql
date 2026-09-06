@@ -6,6 +6,8 @@
 -- Ejecutar desde phpMyAdmin (Importar) o desde consola:
 --   mysql -u root < database/integradora.sql
 -- =============================================================
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 
 CREATE DATABASE IF NOT EXISTS integradora
     DEFAULT CHARACTER SET utf8mb4
