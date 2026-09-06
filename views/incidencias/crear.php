@@ -3,6 +3,7 @@
  * Vista: formulario de registro de incidencias.
  */
 $datosPrevios = $datosPrevios ?? [];
+$errores      = $errores ?? [];
 ?>
 <section class="encabezado-seccion">
     <h1>Reportar incidencia</h1>
@@ -17,7 +18,7 @@ $datosPrevios = $datosPrevios ?? [];
         </label>
         <input class="campo__control" type="text" id="titulo" name="titulo" maxlength="120"
                value="<?= htmlspecialchars($datosPrevios['titulo'] ?? '') ?>" required>
-        <span class="campo__error" id="error-titulo"></span>
+        <span class="campo__error" id="error-titulo"><?= htmlspecialchars($errores['titulo'] ?? '') ?></span>
     </div>
 
     <div class="campo">
@@ -26,14 +27,14 @@ $datosPrevios = $datosPrevios ?? [];
         </label>
         <select class="campo__control" id="categoria_id" name="categoria_id" required>
             <option value="">Selecciona una categoría</option>
-            <?php foreach ($categorias as $id => $nombre): ?>
-                <option value="<?= (int) $id ?>"
-                    <?= (int) ($datosPrevios['categoria_id'] ?? 0) === $id ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($nombre) ?>
+            <?php foreach ($categorias as $cat): ?>
+                <option value="<?= (int) $cat['id'] ?>"
+                    <?= (int) ($datosPrevios['categoria_id'] ?? 0) === (int) $cat['id'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($cat['nombre']) ?>
                 </option>
             <?php endforeach; ?>
         </select>
-        <span class="campo__error" id="error-categoria_id"></span>
+        <span class="campo__error" id="error-categoria_id"><?= htmlspecialchars($errores['categoria_id'] ?? '') ?></span>
     </div>
 
     <div class="campo campo--corto">
@@ -48,7 +49,7 @@ $datosPrevios = $datosPrevios ?? [];
                 </option>
             <?php endforeach; ?>
         </select>
-        <span class="campo__error" id="error-prioridad"></span>
+        <span class="campo__error" id="error-prioridad"><?= htmlspecialchars($errores['prioridad'] ?? '') ?></span>
     </div>
 
     <div class="campo">
@@ -57,7 +58,7 @@ $datosPrevios = $datosPrevios ?? [];
         </label>
         <input class="campo__control" type="text" id="reportante" name="reportante" maxlength="100"
                value="<?= htmlspecialchars($datosPrevios['reportante'] ?? '') ?>" required>
-        <span class="campo__error" id="error-reportante"></span>
+        <span class="campo__error" id="error-reportante"><?= htmlspecialchars($errores['reportante'] ?? '') ?></span>
     </div>
 
     <div class="campo">
@@ -66,7 +67,7 @@ $datosPrevios = $datosPrevios ?? [];
         </label>
         <input class="campo__control" type="email" id="correo" name="correo" maxlength="150"
                value="<?= htmlspecialchars($datosPrevios['correo'] ?? '') ?>" required>
-        <span class="campo__error" id="error-correo"></span>
+        <span class="campo__error" id="error-correo"><?= htmlspecialchars($errores['correo'] ?? '') ?></span>
     </div>
 
     <div class="campo campo--corto">
@@ -75,7 +76,7 @@ $datosPrevios = $datosPrevios ?? [];
         </label>
         <input class="campo__control" type="number" id="area_codigo" name="area_codigo" min="1" max="999"
                value="<?= htmlspecialchars((string) ($datosPrevios['area_codigo'] ?? '')) ?>" required>
-        <span class="campo__error" id="error-area_codigo"></span>
+        <span class="campo__error" id="error-area_codigo"><?= htmlspecialchars($errores['area_codigo'] ?? '') ?></span>
     </div>
 
     <div class="campo">
@@ -84,7 +85,7 @@ $datosPrevios = $datosPrevios ?? [];
         </label>
         <textarea class="campo__control" id="descripcion" name="descripcion" rows="5"
                   required><?= htmlspecialchars($datosPrevios['descripcion'] ?? '') ?></textarea>
-        <span class="campo__error" id="error-descripcion"></span>
+        <span class="campo__error" id="error-descripcion"><?= htmlspecialchars($errores['descripcion'] ?? '') ?></span>
     </div>
 
     <div class="formulario__acciones">
